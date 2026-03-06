@@ -1,0 +1,15 @@
+[env]
+PROJECT_NAME = "{{ config_root | basename }}"
+_.python.venv = { path = ".venv", create = true }
+
+[tasks.install]
+description = "Install dependencies"
+alias = "i"
+run = "uv pip install -r requirements.txt"
+
+[tasks.info]
+description = "Print project information"
+run = """
+echo "Project: $PROJECT_NAME"
+echo "Virtual Environment: $Virtual_ENV"
+"""
