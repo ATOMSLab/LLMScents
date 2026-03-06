@@ -93,7 +93,7 @@ class Client:
             tool_choice={"type": "tool", "name": tool_name},
             max_tokens=self.max_tokens,
             temperature=self.temperature,
-            output_config={"effort": "high"},
+            output_config={"effort": "medium"},
         )
         if query["system_prompt"]:
             kwargs["system"] = [{"type": "text", "text": query["system_prompt"]}]
@@ -116,7 +116,7 @@ class Client:
         messages.append({"role": "user", "content": content_blocks})
         response = self.client.responses.parse(
             input=messages,
-            reasoning={"effort": "high"},
+            reasoning={"effort": "medium"},
             text_format=query["schema"],
             model=self.model,
             max_output_tokens=self.max_tokens,
@@ -126,15 +126,4 @@ class Client:
 
 
 if __name__ == "__main__":
-    options = Options(
-        model="gpt-5-nano",
-        max_tokens=16384,
-    )
-    client = Client(options)
-    query = Query(
-        query_type="reasoner",
-        user_prompt="I can jump 200 feet high on the moon.",
-    )
-    response, tokens = client.inference(query)
-    print(response)
-    print(tokens)
+    pass

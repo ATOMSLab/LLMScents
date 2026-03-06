@@ -50,7 +50,7 @@ def main():
     arguments = get_arguments()
     dataframe = pd.read_json(os.path.join("datasets", arguments.dataset))
     model = arguments.model
-    # dataframe = pd.read_json("acid_exp.json")
+    # dataframe = pd.read_json("datasets/acid_exp.json")
     # model = "gpt-5-nano"
     # for i in tqdm(range(1), desc="Testing molecules"):
     for i in tqdm(range(len(dataframe["odorname"])), desc="Testing molecules"):
