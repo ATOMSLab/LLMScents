@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -11,9 +11,14 @@ class RatingResponse(BaseModel):
         HundredScale,
         Field(description="Predicted rating for the requested scent aspect."),
     ]
-    reference: Annotated[
-        str, Field(description="Reference molecule used to make prediction.")
-    ]
+    reference: Optional[
+        Annotated[
+            str | None,
+            Field(
+                description="Reference molecule used to make prediction. Omit if no reference molecule was used."
+            ),
+        ]
+    ] = None
     explanation: Annotated[
         str, Field(description="Justification for the given predictions.")
     ]

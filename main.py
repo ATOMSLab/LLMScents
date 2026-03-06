@@ -5,7 +5,6 @@ import os
 import pandas as pd
 from tqdm import tqdm
 
-from labels import labels
 from prompts import (
     PromptOne,
     PromptThree,
@@ -50,6 +49,11 @@ def main():
     arguments = get_arguments()
     dataframe = pd.read_json(os.path.join("datasets", arguments.dataset))
     model = arguments.model
+    options = Options(
+        model=model,
+        max_tokens=16384,
+    )
+    client = Client(options)
     # dataframe = pd.read_json("datasets/acid_exp.json")
     # model = "gpt-5-nano"
     # for i in tqdm(range(1), desc="Testing molecules"):
@@ -81,18 +85,13 @@ def main():
         # )
         # print(prompt)
 
-    options = Options(
-        model=model,
-        max_tokens=16384,
-    )
-    client = Client(options)
-    query = Query(
-        query_type="rating",
-        user_prompt=prompt,
-    )
-    response, tokens = client.inference(query)
-    print(response)
-    print(tokens)
+        query = Query(
+            query_type="rating",
+            user_prompt=prompt,
+        )
+        response, tokens = client.inference(query)
+        print(response)
+        print(tokens)
 
 
 if __name__ == "__main__":
